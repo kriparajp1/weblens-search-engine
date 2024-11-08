@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebLens</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Scooby Search</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         /* Basic Reset */
 * {
@@ -14,134 +13,178 @@
     box-sizing: border-box;
 }
 
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0c081f;
+    color: white;
+}
+
 /* Container */
-.weblenz-container {
-    width: 100%;
-    max-width: 1200px;
+.scooby-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
 
 /* Header */
-.weblenz-header {
+.scooby-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.scooby-title {
+    font-size: 36px;
+    color: #e60000;
+}
+
+/* Search Bar */
+.scooby-search-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    background-color: #000;
-    padding: 20px;
-    color: #fff;
+    margin-bottom: 30px;
 }
 
-.weblenz-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.weblenz-search-container {
-    display: flex;
-    align-items: center;
-}
-
-.weblenz-search-input {
+.scooby-input {
+    width: 70%;
     padding: 10px;
-    border: none;
-    border-radius: 4px 0 0 4px;
+    border: 2px solid #e60000;
+    border-radius: 5px;
+    background-color: #1c1c1c;
+    color: white;
+    outline: none;
     font-size: 16px;
 }
 
-.weblenz-search-button {
+.scooby-search-btn {
     padding: 10px;
-    background-color: #ffcc00;
+    background-color: #e60000;
     border: none;
-    border-radius: 0 4px 4px 0;
     cursor: pointer;
-    font-weight: bold;
+    margin-left: 10px;
+    border-radius: 5px;
 }
 
-/* Cards */
-.weblenz-cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.scooby-search-btn img {
+    width: 20px;
+}
+
+/* Search Results */
+.scooby-results {
     margin-top: 20px;
 }
 
-.weblenz-card {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+.scooby-result-item {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 20px;
+    margin-top: 15px;
 }
 
-.weblenz-card-icon {
-    background-color: #fff;
-    border-radius: 50%;
+.scooby-icon {
     width: 40px;
     height: 40px;
-    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0%;
+    margin-right: 15px;
 }
 
-.weblenz-card-title {
+.scooby-result-content {
+    flex-grow: 1;
+}
+
+.scooby-result-title {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
-.weblenz-card-text {
+.scooby-result-url {
+    color: #a8a8a8;
     font-size: 14px;
 }
+.scooby-para{
+    color: #a8a8a8;
+    font-size: 14px;
+    display: grid;
+}
+.scooby-para span {
+    color: #a8a8a8;
+    font-size: 18px;
+}
 
-/* Footer */
-.weblenz-footer {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    margin-top: 20px;
+.scooby-result-text {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #c0c0c0;
+}
+
+/* Divider */
+.scooby-divider {
+    border: none;
+    height: 1px;
+    background-color: #e60000;
+}
+.atag{
+    text-decoration: none;
+    color: #e60000;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .weblenz-cards {
-        grid-template-columns: 1fr;
+    .scooby-input {
+        width: 60%;
+    }
+
+    .scooby-result-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .scooby-icon {
+        margin-bottom: 10px;
     }
 }
 
     </style>
 </head>
 <body>
-    <div class="weblenz-container">
-        <header class="weblenz-header">
-            <h1 class="weblenz-title">WEBLENS</h1>
-            <div class="weblenz-search-container">
-                <form action="/search" method="post">
-                <input type="text" class="weblenz-search-input" name="query" placeholder="Search...">
-                <button class="weblenz-search-button">Find</button>
-                </form>
-            </div>
+    <div class="scooby-container">
+        <header class="scooby-header">
+            <h1 class="scooby-title">SCOOBY</h1>
         </header>
-        <div class="weblenz-cards">
+        
+        <div class="scooby-search-bar">
+            <form style="display: contents;" action="/search" method="post">
+            <input type="text" class="scooby-input" placeholder="Search..." name="query">
+            <button class="scooby-search-btn">
+                search
+            </button>
+        </form>
+        </div>
+        
+        <div class="scooby-results">
             <% if (result) { %>
                 <% searchresult.forEach(a => { %>
-            <div class="weblenz-card">
-                <div>
-                <img class="weblenz-card-icon" src="<%= a.image %>" alt="">
-                <a href="<%= a.link %>"><h2 class="weblenz-card-title"><%= a.title %></h2></a>
+            <div class="scooby-result-item">
+                <img class="scooby-icon" src="<%= a.image %>" alt="">
+                <div class="scooby-result-content">
+                    <a class="atag" href="<%= a.link %>"><h2 class="scooby-result-title"><%= a.title %></h2></a>
+                    <p class="scooby-result-url"><%= a.link %></p>
+                    <p class="scooby-result-text"><%= a.description %></p>
                 </div>
-                <p class="weblenz-card-text">
-                    <%= a.description %>
-                </p>
             </div>
+            <hr class="scooby-divider">
             <% }) %>
+            <% } else { %>
+                <p class="scooby-para"><span>Introducing Scooby</span><br>
+                    Scooby is a unique search engine that simplifies your search experience by scraping results from another search engine and displaying them in its scooby interface. <br> Instead of searching through multiple platforms, Scooby retrieves the most relevant results from a single search engine and presents them here, giving you a streamlined and efficient search experience. <br>
+                    
+                    Whether you're seeking information, news, or quick answers, Scooby delivers by fetching the most accurate results from one trusted source and showcasing them for you in one place.</p>
             <% } %>
-            <!-- Repeat card structure 3 more times -->
+           
         </div>
     </div>
-    <footer class="weblenz-footer">
-        <p>Copyright WebLens 2024. All right reserved</p>
-    </footer>
 </body>
 </html>

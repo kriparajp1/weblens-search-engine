@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 async function search(url) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
   try {
@@ -22,7 +22,7 @@ async function search(url) {
         description: element.querySelector('div[data-result="snippet"] span')?.textContent.trim() || "No description available",
       }));
     });
-
+ 
     return reviews;
 
   } catch (error) {
@@ -41,13 +41,15 @@ app.get('/', (req, res) => {
 
 app.post('/search', async (req, res) => {
   const searchQuery = req.body.query;
+  console.log("Search Query:", searchQuery);
 
   const url = `https://duckduckgo.com/?t=h_&q=${searchQuery}&ia=web`;
   const searchresult = await search(url);
 
   res.render('search', { result: true, searchresult });
-});
+}); 
 
 app.listen(4000, () => {
-  console.log("Server is running on port 4000");
+  console.log("Server is running on port http://localhost:4000");
 });
+ 
