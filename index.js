@@ -1,12 +1,19 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 async function search(url) {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
+  });
   const page = await browser.newPage();
 
   try {
